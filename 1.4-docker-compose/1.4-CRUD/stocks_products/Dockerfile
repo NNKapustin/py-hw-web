@@ -8,6 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python", "manage.py", "collectstatic", "--no-input"]
-
-CMD ["python", "manage.py", "migrate"]
+CMD ["sh", "-c", "python manage.py collectstatic --no-input && python manage.py migrate"]
