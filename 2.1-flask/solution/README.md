@@ -6,5 +6,5 @@
 ### Запускаем server.py
 <code>python server.py</code>
 
-### Оправляем запросы через REST Client или Postman. Примеры запросов в файле requests_example.http
+### Оправляем запросы через REST Client или Postman. Примеры запросов в файле [requests_example.http](requests_example.http)
 
