@@ -1,0 +1,72 @@
+# Примеры API-запросов
+
+@baseUrl = http://127.0.0.1:5000
+
+###
+
+# создание пользователя
+POST {{baseUrl}}/users/
+Content-Type: application/json
+
+{
+    "username": "myname",
+    "password": 1111,
+    "email": "myname@yandex.ru"
+}
+
+###
+
+# информация о пользователе
+GET {{baseUrl}}/users/1/
+Content-Type: application/json
+
+###
+
+# удалить пользователя
+DELETE {{baseUrl}}/users/1/
+Content-Type: application/json
+
+###
+
+# login
+POST {{baseUrl}}/login/
+Content-Type: application/json
+
+{
+    "username": "myname",
+    "password": 1111
+}
+
+###
+
+# создание объявления
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+
+{
+  "title": "Sell Auto",
+  "description": "Really Good Auto"
+}
+
+###
+
+# получение объявления
+GET {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+
+###
+
+# обновление объявления
+PATCH {{baseUrl}}/advertisements/1/
+Content-Type: application/json
+
+{
+    "title": "Buy Something",
+    "description": "Sell me something usefull"
+}
+
+###
+
+# удаление объявления
+DELETE {{baseUrl}}/advertisements/1/
+Content-Type: application/json

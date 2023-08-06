@@ -8,7 +8,7 @@ services:
     build: .
     command: gunicorn stocks_products.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - .:/code
+      - .:/code/static
     depends_on:
       - postgres
 
