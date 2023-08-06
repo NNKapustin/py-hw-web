@@ -28,17 +28,6 @@ Content-Type: application/json
 
 ###
 
-# login
-POST {{baseUrl}}/login/
-Content-Type: application/json
-
-{
-    "username": "myname",
-    "password": 1111
-}
-
-###
-
 # создание объявления
 POST {{baseUrl}}/advertisements/
 Content-Type: application/json

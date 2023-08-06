@@ -34,7 +34,7 @@ class Token(Base):
     __tablename__ = "tokens"
     id = Column(UUIDType, primary_key=True, default=uuid.uuid4)
     creation_time = Column(DateTime, server_default=func.now())
-    user_id = Column(Integer, ForeignKey("ads_users.id", ondelete="CASCADE"))
+    user_id = Column(Integer, ForeignKey("app_users.id", ondelete="CASCADE"))
     user = relationship("User", lazy="joined")
 
 
