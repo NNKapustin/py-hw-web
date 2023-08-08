@@ -1,0 +1,5 @@
+aiohttp==3.8.5
+asyncpg==0.28.0
+more-itertools==10.1.0
+SQLAlchemy==1.4.48
+progress==1.6
