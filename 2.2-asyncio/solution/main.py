@@ -1,9 +1,9 @@
 import asyncio
 import datetime
 
-from progress.spinner import Spinner
 import aiohttp
 from more_itertools import chunked
+from progress.spinner import Spinner
 
 from models import Base, Session, SwapiPeople, engine
 
@@ -20,13 +20,14 @@ async def get_info(urls):
     async with aiohttp.ClientSession() as session:
         htmls = await fetch_all(session, urls)
         return htmls
-    
-    
+
+
 async def fetch(session, url):
     async with session.get(url) as response:
         if response.status != 200:
             response.raise_for_status()
         return await response.json()
+
 
 async def fetch_all(session, urls):
     tasks = []
@@ -41,28 +42,31 @@ async def insert_to_db(results):
     async with Session() as session:
         people_list = []
         for person_json in results:
-            if person_json.get('url'):
-                films = await get_info(person_json.get('films'))
-                homeworld = await get_info([person_json.get('homeworld')])
-                species = await get_info(person_json.get('species'))
-                starships = await get_info(person_json.get('starships'))
-                vehicles = await get_info(person_json.get('vehicles'))
-                
-                person = SwapiPeople(id=int(person_json.get('url')[34:-1]),
-                                     birth_year=person_json.get('birth_year'),
-                                     eye_color=person_json.get('eye_color'),
-                                     films=', '.join([film.get('title') for film in films]),
-                                     gender=person_json.get('gender'),
-                                     hair_color=person_json.get('hair_color'),
-                                     height=person_json.get('height'),
-                                     homeworld=homeworld[0].get('name'),
-                                     mass=person_json.get('mass'),
-                                     name=person_json.get('name'),
-                                     skin_color=person_json.get('skin_color'),
-                                     species=', '.join([specie.get('name') for specie in species]),
-                                     starships=', '.join([starship.get('name') for starship in starships]),
-                                     vehicles=', '.join([vehicle.get('name') for vehicle in vehicles])
-                                     )
+            if person_json.get("url"):
+                films = await get_info(person_json.get("films"))
+                homeworld = await get_info([person_json.get("homeworld")])
+                species = await get_info(person_json.get("species"))
+                starships = await get_info(person_json.get("starships"))
+                vehicles = await get_info(person_json.get("vehicles"))
+
+                person = SwapiPeople(
+                    id=int(person_json.get("url")[34:-1]),
+                    birth_year=person_json.get("birth_year"),
+                    eye_color=person_json.get("eye_color"),
+                    films=", ".join([film.get("title") for film in films]),
+                    gender=person_json.get("gender"),
+                    hair_color=person_json.get("hair_color"),
+                    height=person_json.get("height"),
+                    homeworld=homeworld[0].get("name"),
+                    mass=person_json.get("mass"),
+                    name=person_json.get("name"),
+                    skin_color=person_json.get("skin_color"),
+                    species=", ".join([specie.get("name") for specie in species]),
+                    starships=", ".join(
+                        [starship.get("name") for starship in starships]
+                    ),
+                    vehicles=", ".join([vehicle.get("name") for vehicle in vehicles]),
+                )
                 people_list.append(person)
 
         session.add_all(people_list)
@@ -75,7 +79,7 @@ async def main():
     async with engine.begin() as con:
         await con.run_sync(Base.metadata.create_all)
     async with aiohttp.ClientSession() as client:
-        spinner = Spinner(' Запрос данных и запись в БД ... ')
+        spinner = Spinner(" Запрос данных и запись в БД ... ")
         for ids_chunk in chunked(range(1, 84), CHUNK_SIZE):
             coros = [get_people(client, i) for i in ids_chunk]
             results = await asyncio.gather(*coros)

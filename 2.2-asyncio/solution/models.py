@@ -35,21 +35,3 @@ class SwapiPeople(Base):
     species = Column(String)
     starships = Column(String)
     vehicles = Column(String)
-
-    def __str__(self):
-        return f"""{self.id}
-{self.birth_year}
-{self.eye_color}
-{self.films}
-{self.gender}
-{self.hair_color}
-{self.height}
-{self.homeworld}
-{self.mass}
-{self.name}
-{self.skin_color}
-{self.species}
-{self.starships}
-{self.vehicles}
-"""
-    
