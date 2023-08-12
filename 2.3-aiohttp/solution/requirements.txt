@@ -1,0 +1,7 @@
+aiohttp==3.8.5
+asyncpg==0.28.0
+bcrypt==4.0.1
+greenlet==2.0.2
+psycopg2-binary==2.9.7
+SQLAlchemy==1.4.49
+sqlalchemy_utils==0.41.1
