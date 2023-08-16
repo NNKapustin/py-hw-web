@@ -7,7 +7,7 @@ services:
   db:
     image: postgres:14.3-alpine3.15
     ports:
-      - "5431:5432"
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
@@ -16,10 +16,12 @@ services:
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
 
-  # backend:
-  #   build: .
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     - db
-  #   command: python server.py
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      PG_HOST: db
+    depends_on:
+      - db
+    command: python server.py
