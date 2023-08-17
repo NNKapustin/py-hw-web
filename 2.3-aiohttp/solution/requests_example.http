@@ -57,5 +57,5 @@ Content-Type: application/json
 ###
 
 # удаление объявления
-DELETE {{baseUrl}}/advertisements/1/
+DELETE {{baseUrl}}/advertisement/1/
 Content-Type: application/json

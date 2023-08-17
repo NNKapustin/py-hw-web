@@ -152,7 +152,7 @@ class AdvertisementView(web.View):
         return web.json_response({"id": advertisement.id})
 
     async def delete(self):
-        advertisement = await get_user(self.adv_id, self.session)
+        advertisement = await get_advertisement(self.adv_id, self.session)
         await self.session.delete(advertisement)
         await self.session.commit()
         return web.json_response({"status": "deleted"})
